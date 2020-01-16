@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    table {
+       border-collapse: collapse;
+     }
+     th, td {
+       border: 1px solid black;
+       padding: 4px;
+     }
+     th {
+       cursor: pointer;
+     }
+     th:hover {
+       background: yellow;
+     }
+  </style>
+</head>
+
+<body>
+
+  <table id="grid">
+    <thead>
+      <tr>
+        <th data-type="number">Возраст</th>
+        <th data-type="string">Имя</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>5</td>
+        <td>Вася</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Петя</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Женя</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Маша</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Илья</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+   class Grid {
+    constructor(elem) {
+      this._elem = elem;
+      elem.onclick = this.onClick.bind(this); // (*)
+    }
+
+    number() {
+        let tr = document.getElementsByTagName('tr');
+          let trArr = Array.from(tr).slice(1);
+        
+          let sortedTr = trArr.sort(sortTable);
+          
+      
+          function sortTable(trA,trB){
+          if(Number(trA.firstElementChild.innerHTML) > Number(trB.firstElementChild.innerHTML)){
+            return 1;
+          }else{
+            return -1;
+          }
+        }
+         let tbody = document.getElementsByTagName('tbody')[0];
+         tbody.append(...sortedTr);    
+
+    }
+
+    string() {
+          let tr = document.getElementsByTagName('tr');
+          let trArr = Array.from(tr).slice(1);
+        
+          let sortedTr = trArr.sort(sortTable);
+          //console.log(sortedTr);
+        
+          function sortTable(trA,trB){
+          if(trA.lastElementChild.innerHTML > trB.lastElementChild.innerHTML){
+            return 1;
+          }else{
+            return -1;
+          }
+        }
+         let tbody = document.getElementsByTagName('tbody')[0];
+         tbody.append(...sortedTr); 
+    }
+
+
+    onClick(event) {
+      let type = event.target.dataset.type;
+      if (type) {
+        this[type]();
+      }
+    };
+  }
+
+  new Grid(grid);
+  </script>
+
+</body>
+</html>

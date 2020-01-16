@@ -1,0 +1,210 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <style>
+    /* общие стили для таблицы, изменять их не нужно */
+
+th {
+  text-align: center;
+  font-weight: bold;
+}
+
+td {
+  width: 150px;
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+.nw {
+  background-color: #999;
+}
+
+.n {
+  background-color: #03f;
+  color: #fff;
+}
+
+.ne {
+  background-color: #ff6;
+}
+
+.w {
+  background-color: #ff0;
+}
+
+.c {
+  background-color: #60c;
+  color: #fff;
+}
+
+.e {
+  background-color: #09f;
+  color: #fff;
+}
+
+.sw {
+  background-color: #963;
+  color: #fff;
+}
+
+.s {
+  background-color: #f60;
+  color: #fff;
+}
+
+.se {
+  background-color: #0c3;
+  color: #fff;
+}
+
+textarea{
+  outline: none;
+  resize: none;
+  border: none;
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.btns{
+  position: absolute;
+}
+  </style>
+
+  <p>Кликните на ячейку таблицы, чтобы отредактировать её. Нажмите ОК или ОТМЕНА, когда закончите.</p>
+
+  <table id="bagua-table">
+    <tr>
+      <th colspan="3">Квадрат <em>Bagua</em>: Направление, Элемент, Цвет, Значение</th>
+    </tr>
+    <tr>
+      <td class="nw"><strong>Северо-Запад</strong>
+        <br>Металл
+        <br>Серебро
+        <br>Старейшины
+      </td>
+      <td class="n"><strong>Север</strong>
+        <br>Вода
+        <br>Синий
+        <br>Перемены
+      </td>
+      <td class="ne"><strong>Северо-Восток</strong>
+        <br>Земля
+        <br>Жёлтый
+        <br>Направление
+      </td>
+    </tr>
+    <tr>
+      <td class="w"><strong>Запад</strong>
+        <br>Металл
+        <br>Золото
+        <br>Молодость
+      </td>
+      <td class="c"><strong>Центр</strong>
+        <br>Всё
+        <br>Пурпурный
+        <br>Гармония
+      </td>
+      <td class="e"><strong>Восток</strong>
+        <br>Дерево
+        <br>Синий
+        <br>Будущее
+      </td>
+    </tr>
+    <tr>
+      <td class="sw"><strong>Юго-Запад</strong>
+        <br>Земля
+        <br>Коричневый
+        <br>Спокойствие
+      </td>
+      <td class="s"><strong>Юг</strong>
+        <br>Огонь
+        <br>Оранжевый
+        <br>Слава
+      </td>
+      <td class="se"><strong>Юго-Восток</strong>
+        <br>Дерево
+        <br>Зеленый
+        <br>Роман
+      </td>
+    </tr>
+
+</table>
+
+
+  <script>
+    let table = document.getElementById('bagua-table');
+    
+    table.addEventListener('click', onClick);
+
+    function onClick(event) {
+      
+      if(isTextArea()) return;//перевіряємо чи є textarea
+
+      if(event.target.closest('td')){
+        
+        let td = event.target.closest('td');
+  
+        let height = td.clientHeight;
+        let width = td.clientWidth;
+        let inner = td.innerHTML;
+        let textarea = document.createElement('textarea');
+        
+        td.replaceWith(textarea);
+        textarea.value = inner;
+        textarea.style.height = height + 'px';
+        textarea.style.width = width + 'px';
+        textarea.focus();
+        
+        table.insertAdjacentHTML('afterend', '<div class = "btns"><button id = "btnOk">OK</button><button id ="btnCansel">CANSEL</button></div>');
+
+              let btnOk = document.getElementById('btnOk');
+              let btnCansel = document.getElementById('btnCansel');
+              let buttons = document.querySelector('.btns');
+              
+               // позиціонуєм кнопки відносно textarea
+              
+              let positionBtnY = textarea.getBoundingClientRect().bottom;
+              let positionBtnX = textarea.getBoundingClientRect().left;
+              
+              buttons.style.left = positionBtnX + 'px';
+              buttons.style.top = positionBtnY + 'px';
+        
+        btnOk.addEventListener('click', btnOkClick);
+
+        function btnOkClick(){
+          td.innerHTML = textarea.value;
+          textarea.replaceWith(td);
+          let btns = document.getElementsByClassName('btns')[0];
+          btns.remove();
+        };
+
+        btnCansel.addEventListener('click', btnCanselOnClik);
+
+        function btnCanselOnClik(){
+          textarea.replaceWith(td);
+          let btns = document.getElementsByClassName('btns')[0];
+          btns.remove();
+        }
+      }
+
+    }
+
+    
+    function isTextArea(){
+     let tagTextarea = table.getElementsByTagName('textarea')[0];
+      if(table.contains(tagTextarea)){
+        return true;
+      }
+      return false;
+    }
+  </script>
+
+</body>

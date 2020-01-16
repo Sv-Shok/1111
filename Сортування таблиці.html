@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+  <table id="table">
+    <tr>
+      <th>Имя</th>
+      <th>Фамилия</th>
+      <th>Возраст</th>
+    </tr>
+    <tr>
+      <td>John</td>
+      <td>Smith</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>Pete</td>
+      <td>Brown</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>Ann</td>
+      <td>Lee</td>
+      <td>5</td>
+    </tr>
+  </table>
+  
+  <script>
+   let table = document.getElementById('table');
+   let listTr = document.getElementsByTagName('tr');
+
+   let arrTr = Array.from(listTr).slice(1);
+        
+        //Сортування по Імені
+         arrTr.sort((trA,trB)=>{
+          if(trA.firstElementChild.innerHTML > trB.firstElementChild.innerHTML){
+            return 1;
+         }
+            return -1;
+         });
+
+      //Сортування по віку   
+      // arrTr.sort((trA,trB)=>{
+      // if(+trA.lastElementChild.innerHTML < +trB.lastElementChild.innerHTML){
+      // return 1;
+      // }
+      // return -1;
+      // });
+
+
+ 
+   table.append(...arrTr);
+   console.log(arrTr);
+  </script>
+
+</body>
+</html>

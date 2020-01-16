@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script>
+	let arr = [1, 2, 3, 4, 5, 6, 7];
+    function inBetween(a,b){
+
+    	return function(c){
+    		if (c >= a && c <= b ){
+    			return c;
+    		} 
+    	}
+    } 
+
+   function inArray([...arr]){
+   		return function(c){
+   			for(let i = 0; i < arr.length; i++){
+   				if(arr[i] == c){
+   					return c;
+   				}
+   			}
+   		}
+    }
+
+	console.log(arr.filter(inBetween(3,6)));
+    console.log( arr.filter(inArray([1, 2, 10])) ); 
+</script>
+</body>
+</html>

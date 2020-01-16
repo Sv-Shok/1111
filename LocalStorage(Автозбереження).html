@@ -1,0 +1,16 @@
+<!doctype html>
+<textarea style="width:200px; height: 60px;" id="area"></textarea>
+<script>
+
+ let area = document.getElementById('area');
+ area.value = localStorage.getItem('textArea');
+ area.oninput = function() {
+    localStorage.setItem('textArea',area.value)
+    //console.log(area.value);
+  };
+ window.onstorage = function(event) {
+   if(event.key!='textArea') return;
+   area.value = event.newValue;
+   console.log(event.newValue);
+ }
+</script>

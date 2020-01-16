@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+
+<body>
+
+   <h1>Календар на місяць</h1>
+   <div id ="dateInner"></div>
+  <div id="calendar"></div>
+  Введіть рік: <input type="text" id = "year"><br>
+  Введіть число місяця: <input type="text" id="month"><br>
+  <button id="btn">Створити</button>
+  <script>
+    let arrMonth = ["Січень","Лютий","Березень","Квітень","Травень","Червень","Липень","Серпень","Вересень","Жовтень","Листопад","Грудень"];
+    let arrDays = ["Нд","Пн","Вт","Ср","Чт","Пт","Сб"];
+    
+    let calendar = document.getElementById('calendar');
+    // Створюєм Календар
+    function createCalendar(elem, year, month) {
+      
+    elem.insertAdjacentHTML('afterbegin', '<table></table>');
+    let table = document.getElementsByTagName('table')[0];
+    
+    for(let j = 0; j < 6; j++){
+
+       let tr = document.createElement('tr');
+       table.append(tr);
+    
+    for(let i = 0; i < 7; i++){
+       if(j == 0){
+       let trCurrent = document.getElementsByTagName('tr')[j];
+       let th = document.createElement('th');
+       th.innerHTML = arrDays[i];
+       trCurrent.append(th); 
+        }
+       else{
+       let trCurrent = document.getElementsByTagName('tr')[j];
+       let td = document.createElement('td');
+       trCurrent.append(td);
+        }
+         
+      }
+    }
+
+    if(month <= 0 || month > 12){
+        alert('Введіть число місяця від 1 до 12');
+        return;
+      }else{
+         month -= 1;
+      }
+     
+    let startDate =  new Date(year,month);
+   
+    let nextDate = +startDate;
+
+    let td = document.getElementsByTagName('td');
+    
+    let startFillTable = new Date(startDate).getDay();
+    for(let i = startFillTable; i < td.length; i++){
+        td[i].innerHTML = new Date(nextDate).getDate();
+        nextDate = nextDate + 86400 * 1000;
+      }
+
+    }
+
+    //createCalendar(calendar, 1988, 8);
+  
+  let inputYear = document.getElementById('year');
+  let inputMonth = document.getElementById('month');
+  let btn = document.getElementById('btn');
+  let dateInner = document.getElementById('dateInner');
+
+  btn.addEventListener('click', onClick);
+
+  function onClick(){
+    let isTable = document.getElementsByTagName('table')[0];
+    if(isTable){
+      isTable.remove();
+    }
+    let yearInner = +inputYear.value;
+    let monthInner = +inputMonth.value;
+    if (!yearInner || !monthInner){
+      return;
+    }
+    createCalendar(calendar, yearInner,monthInner);
+    let date = new Date(+inputYear.value, +inputMonth.value);
+    dateInner.innerHTML = `Рік: ${yearInner} Місяць:  ${arrMonth[monthInner - 1]}`;
+  }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <div>Нажмите "Q" и "W" вместе (язык значения не играет).</div>
+<script>
+ 
+    runOnKeys(
+    () => alert("Привет!"),
+    "KeyQ",
+    "KeyW",
+  );
+ 
+  function runOnKeys(func, ... code_n){
+  
+  document.addEventListener('keydown', onKeyDown);
+  
+  let arr = [];
+    
+    function onKeyDown(event){
+      for(let i = 0; i < code_n.length; i++){
+         if(event.code == code_n[i]){
+          if(arr.includes(event.code)) return;
+          arr.push(event.code);
+           }
+      }
+       console.log(arr);
+    }
+
+    document.addEventListener('keyup', onKeyUp);
+      function onKeyUp(){
+        let value;
+        for(let i = 0; i < arr.length; i++){
+          if(code_n.includes(arr[i])){
+           value = true;
+          }else{
+            return value = false;
+          }
+          
+        }
+          if(value == true && code_n.length === arr.length){
+            func();
+          }
+       //очищаем масив
+        arr = [];
+      }
+
+  }
+</script>
+</body>
+</html>

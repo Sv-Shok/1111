@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <ul></ul>
+<script>
+let ul = document.getElementsByTagName('ul')[0];
+let data;
+function createElemLi(){
+  data = prompt('Щось введіть',100);
+  if(data == null || data == ''){
+    return;
+  }
+  let li = document.createElement('li');
+  li.innerText = data;
+  ul.append(li);
+  createElemLi();
+}
+createElemLi();
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      height: 2000px;
+      /* добавим body прокрутку, подсказка должна работать и с прокруткой */
+    }
+
+    .tooltip {
+      /* немного стилизуем подсказку, можете использовать свои стили вместо этих */
+      position: fixed;
+      padding: 10px 20px;
+      border: 1px solid #b3c9ce;
+      border-radius: 4px;
+      text-align: center;
+      font: italic 14px/1.3 sans-serif;
+      color: #333;
+      background: #fff;
+      box-shadow: 3px 3px 3px rgba(0, 0, 0, .3);
+    }
+  </style>
+</head>
+
+<body>
+
+  <p>ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя</p>
+  <p>ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя ЛяЛяЛя</p>
+
+  <button data-tooltip="эта подсказка должна быть длиннее, чем элемент">Короткая кнопка</button>
+  <button data-tooltip="HTML<br>подсказка">Ещё кнопка</button>
+
+  <p>Прокрутите страницу, чтобы кнопки оказались у верхнего края, а затем проверьте правильно ли выводятся подсказки.</p>
+
+
+  <script>
+    document.addEventListener('mouseover', tooltip);
+
+    function tooltip(event) {
+      if(event.target.dataset.tooltip){
+        let div = document.createElement('div');
+        div.innerHTML = event.target.dataset.tooltip;
+        div.classList.add('tooltip');
+        event.target.before(div); 
+
+       let cordsButton = event.target.getBoundingClientRect();
+       
+       let tooltipElem = document.getElementsByClassName('tooltip')[0];
+       let tooltipHeight = tooltipElem.offsetHeight;
+       let tooltipWidth = tooltipElem.offseWidth;
+       if(cordsButton.y < tooltipHeight){
+          tooltipElem.style.top = cordsButton.bottom + 'px';
+          tooltipElem.style.left = cordsButton.x + 'px';
+       }else{
+          tooltipElem.style.top = cordsButton.y - tooltipHeight  + 'px';
+          tooltipElem.style.left = cordsButton.x + 'px';
+       }
+      }
+     
+    };
+
+
+    document.addEventListener('mouseout', tooltipRemove);
+
+    function tooltipRemove(event) {
+      if(event.target.dataset.tooltip){
+      let divRemove = document.getElementsByClassName('tooltip')[0];
+      divRemove.remove();
+      }
+     
+    }
+  </script>
+
+</body>
+</html>

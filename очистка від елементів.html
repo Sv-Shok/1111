@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+<ol id="elem">
+  <li>Привет</li>
+  <li>Мир</li>
+  <li>Привет</li>
+  <li>Мир</li>
+  <li>Привет</li>
+  <li>Мир</li>
+  <li>Привет</li>
+  <li>Мир</li>
+  <li>Привет</li>
+  <li>Мир</li>
+  <li>Привет</li>
+  <li>Мир</li>
+</ol>
+
+<script>
+  function clear(elem) { 
+    for(let i = 0; i < elem.children.length; i++){
+      elem.children[i].remove();
+      i--;
+    }
+   }
+/////////////////////////////////
+// Коротший спосіб
+//    function clear(elem) {
+//   elem.innerHTML = '';
+// }
+
+  clear(elem); // очищает список
+</script>
+</body>
+</html>

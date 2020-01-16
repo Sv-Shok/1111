@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script>
+
+let strings = ["кришна", "кришна", "харе", "харе",
+  "харе", "харе", "кришна", "кришна", ":-O"];
+function unique(strings){
+ let result = [];
+ for(let i = 0; i < strings.length; i++){
+ 	if(result.includes(strings[i])) continue;
+ 	result.push(strings[i]);
+ }
+ return result;
+}
+alert( unique(strings) ); // кришна, харе, :-O
+
+
+// function unique(arr) {
+//   let result = [];
+
+//   for (let str of arr) {
+//     if (!result.includes(str)) {
+//       result.push(str);
+//     }
+//   }
+
+//   return result;
+// }
+
+</script>
+</body>
+</html>

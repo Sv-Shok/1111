@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+    <div id= 'clock'><span id = "hours"></span><span class=":"></span><span id = "minutes"></span><span class=":"></span><span id = "seconds"></span></div>
+  <!-- клик по этой кнопке вызовет clockStart() -->
+  <input type="button" onclick="clockStart()" value="Старт">
+
+  <!-- клик по этой кнопке вызовет clockStop() -->
+  <input type="button" onclick="clockStop()" value="Стоп">
+  <script>
+  
+  let idClock = document.getElementById('clock');
+  let idhours = document.getElementById('hours');
+  let idminutes = document.getElementById('minutes');
+  let idseconds = document.getElementById('seconds');
+  let classColons = document.getElementsByClassName(':');
+  idhours.style.color = 'red';
+  idminutes.style.color = 'green';
+  idseconds.style.color = 'blue';
+
+   
+    class Clock{
+    
+     start(){
+      this.timeId = setTimeout(()=>{
+      let date = new Date();
+       if(date.getHours() >= 0 && date.getHours() < 10) {
+          idhours.innerHTML ='0' + date.getHours();
+        }else{
+          idhours.innerHTML = date.getHours();
+        };
+       if(date.getMinutes() >= 0 && date.getMinutes() < 10) {
+         idminutes.innerHTML = '0' + date.getMinutes();
+        }else{
+          idminutes.innerHTML = date.getMinutes();
+        };
+       if(date.getSeconds() >= 0 && date.getSeconds() < 10) {
+          idseconds.innerHTML =  '0' + date.getSeconds();
+        }else{
+          idseconds.innerHTML = date.getSeconds();
+        };
+
+       classColons[0].innerHTML = ':';
+       classColons[1].innerHTML = ':';
+       console.log(date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds());
+
+        this.start();
+
+        },1000);
+
+      };
+
+    stop() {
+    clearTimeout(this.timeId);
+    };
+
+  };
+
+ let clock = new Clock();
+
+ function clockStart(){
+   clock.start();
+ };
+
+ function clockStop() {
+    clock.stop();
+  } 
+   
+  </script>
+</body>
+</html>
